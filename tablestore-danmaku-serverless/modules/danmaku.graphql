@@ -1,8 +1,21 @@
 scalar JSON
+
+input SendDanmakuInput {
+  player: String!
+  author: String!
+  time: Int!
+  text: String!
+  color: Int
+  type: Int
+  ip: String
+  refter: String
+  date: Int
+}
+
 type Query {
-  GetDanmaku(VideoID: String, StartTime: Int): JSON
+  GetDanmaku(player: String!, time: Int): [JSON!]!
 }
 
 type Mutation {
-  SendDanmaku(VideoID: String, Timestamp: Int, UserID: String, text: String): JSON
+  SendDanmaku(data: SendDanmakuInput!): JSON
 }

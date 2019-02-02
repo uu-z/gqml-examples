@@ -1,50 +1,40 @@
 const { gqml } = require("gqml");
 const t = require("../utils/tablestore");
-const _ = require("lodash");
+const { r } = require("../utils");
 
 gqml.yoga({
   typeDefs: `${__dirname}/danmaku.graphql`,
   resolvers: {
     Query: {
-      GetDanmaku: async (p, { VideoID, StartTime }) => {
+      GetDanmaku: async (p, { player, time }) => {
         let result = await t.client.getRange({
           tableName: "danmaku",
           direction: t.TableStore.Direction.FORWARD,
           inclusiveStartPrimaryKey: t.f({
-            VideoID,
-            Timestamp: t.Long.fromNumber(StartTime),
-            UserID: ""
+            player,
+            author: "",
+            time: t.Long.fromNumber(time)
           }),
           exclusiveEndPrimaryKey: t.f({
-            VideoID,
-            Timestamp: t.Long.fromNumber(StartTime + 60000),
-            UserID: ""
+            player,
+            author: "",
+            time: t.Long.fromNumber(time + 60000)
           }),
           limit: 100
         });
-        result = _.chain(result.rows)
-          .reduce((a = [], v, i) => {
-            let obj = {};
-            _.each(v.primaryKey, v => {
-              obj[v.name] = v.value;
-            });
-            _.each(v.attributes, v => {
-              obj[v.columnName] = v.columnValue;
-            });
-            a.push(obj);
-            return a;
-          }, [])
-          .value();
+        result = r(result.row);
         return result;
       }
     },
     Mutation: {
-      SendDanmaku: async (p, { VideoID, Timestamp, UserID, text }) => {
-        const result = await t.putRow({
+      SendDanmaku: async (p, { data }) => {
+        const { player, time, author, ...other } = data;
+        let result = await t.putRow({
           tableName: "danmaku",
-          ...t.primaryKey({ VideoID, Timestamp: t.Long.fromNumber(Timestamp), UserID }),
-          ...t.attributeColumns({ text })
+          ...t.primaryKey({ player, author, time: t.Long.fromNumber(time) }),
+          ...t.attributeColumns(other)
         });
+        result = r(result.row);
         return result;
       }
     }
