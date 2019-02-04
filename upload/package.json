@@ -1,0 +1,23 @@
+{
+  "scripts": {
+    "start": "nodemon --exec ts-node -- index.ts"
+  },
+  "dependencies": {
+    "@types/mkdirp": "^0.5.2",
+    "@types/shortid": "0.0.29",
+    "apollo-fetch": "^0.7.0",
+    "gqml": "^0.3.7",
+    "mkdirp": "^0.5.1",
+    "prisma-client-lib": "^1.25.7",
+    "shortid": "^2.2.14"
+  },
+  "devDependencies": {
+    "@types/apollo-upload-client": "^8.1.1",
+    "apollo-client": "^2.4.12",
+    "apollo-upload-client": "^10.0.0",
+    "graphql-tag": "^2.10.1",
+    "nodemon": "^1.18.9",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.1"
+  }
+}
