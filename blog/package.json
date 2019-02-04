@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "start": "nodemon --exec ts-node -- index.ts"
+  },
+  "dependencies": {
+    "gqml": "^0.3.3",
+    "prisma-client-lib": "^1.25.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.1"
+  }
+}

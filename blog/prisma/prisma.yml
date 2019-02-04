@@ -1,0 +1,10 @@
+endpoint: https://us1.prisma.sh/yuyuko-36f4e1/blog/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: typescript-client
+    output: ../utils/generated/prisma-client/
+
+hooks:
+  post-deploy:
+    - prisma generate
