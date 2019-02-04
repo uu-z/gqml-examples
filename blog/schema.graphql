@@ -1,25 +1,41 @@
+scalar DateTime
+
 type Query {
-  publishedPosts: [Post!]!
-  post(postId: ID!): Post
-  postsByUser(userId: ID!): [Post!]!
+  me: User!
+
+  post(id: ID!): Post
+  postFeed: [Post!]!
+  filterPosts(seachString: String): [Post!]!
 }
 
 type Mutation {
-  createUser(name: String!): User
-  createDraft(title: String!, userId: ID!): Post
-  publish(postId: ID!): Post
+  signup(email: String!, name: String, password: String!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+
+  createDraft(content: String, title: String!): Post!
+  deletePost(id: ID!): Post
+  publish(id: ID!): Post
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
 }
 
 type User {
   id: ID!
-  email: String
-  name: String!
+  email: String!
+  name: String
+  password: String!
   posts: [Post!]!
 }
 
 type Post {
   id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
+  content: String
   published: Boolean!
-  author: User
+  author: User!
 }

@@ -3,7 +3,9 @@
     "start": "nodemon --exec ts-node -- index.ts"
   },
   "dependencies": {
-    "gqml": "^0.3.3",
+    "bcrypt": "^3.0.3",
+    "gqml": "^0.3.7",
+    "jsonwebtoken": "^8.4.0",
     "prisma-client-lib": "^1.25.7"
   },
   "devDependencies": {

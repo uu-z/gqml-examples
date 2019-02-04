@@ -319,6 +319,13 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
+bcrypt@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/bcrypt/-/bcrypt-3.0.3.tgz#7d1e9e5d533c5ea060e6ac8834942c004dbffe9c"
+  dependencies:
+    nan "2.12.1"
+    node-pre-gyp "0.12.0"
+
 binary-extensions@^1.0.0:
   version "1.13.0"
   resolved "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.13.0.tgz#9523e001306a32444b907423f1de2164222f6ab1"
@@ -1020,9 +1027,9 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-gqml@^0.3.3:
-  version "0.3.3"
-  resolved "https://registry.npmjs.org/gqml/-/gqml-0.3.3.tgz#116e1e54b827412d6f6110d35b257f6c7a4dc528"
+gqml@^0.3.7:
+  version "0.3.7"
+  resolved "https://registry.npmjs.org/gqml/-/gqml-0.3.7.tgz#3262cf50d8e8819cda4ea02e63217d1dc926a282"
   dependencies:
     bluebird "^3.5.3"
     graphql-import "^0.7.1"
@@ -1487,7 +1494,7 @@ json-parse-better-errors@^1.0.1:
   version "1.0.2"
   resolved "https://registry.npmjs.org/json-parse-better-errors/-/json-parse-better-errors-1.0.2.tgz#bb867cfb3450e69107c131d1c514bab3dc8bcaa9"
 
-jsonwebtoken@^8.3.0:
+jsonwebtoken@^8.3.0, jsonwebtoken@^8.4.0:
   version "8.4.0"
   resolved "https://registry.npmjs.org/jsonwebtoken/-/jsonwebtoken-8.4.0.tgz#8757f7b4cb7440d86d5e2f3becefa70536c8e46a"
   dependencies:
@@ -1764,7 +1771,7 @@ mute-stream@0.0.7:
   version "0.0.7"
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.7.tgz#3075ce93bc21b8fab43e1bc4da7e8115ed1e7bab"
 
-nan@^2.9.2:
+nan@2.12.1, nan@^2.9.2:
   version "2.12.1"
   resolved "https://registry.npmjs.org/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
 
@@ -1806,6 +1813,21 @@ node-fetch@1.6.3:
 node-fetch@2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.1.2.tgz#ab884e8e7e57e38a944753cec706f788d1768bb5"
+
+node-pre-gyp@0.12.0:
+  version "0.12.0"
+  resolved "https://registry.npmjs.org/node-pre-gyp/-/node-pre-gyp-0.12.0.tgz#39ba4bb1439da030295f899e3b520b7785766149"
+  dependencies:
+    detect-libc "^1.0.2"
+    mkdirp "^0.5.1"
+    needle "^2.2.1"
+    nopt "^4.0.1"
+    npm-packlist "^1.1.6"
+    npmlog "^4.0.2"
+    rc "^1.2.7"
+    rimraf "^2.6.1"
+    semver "^5.3.0"
+    tar "^4"
 
 node-pre-gyp@^0.10.0:
   version "0.10.3"

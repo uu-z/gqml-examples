@@ -1,60 +1,41 @@
 import { gqml } from "gqml";
-import { p } from "../utils";
+import { p, r, hashPwd, signToken, getUserId, comparePwd } from "../utils";
 
 gqml.yoga({
   resolvers: {
     Query: {
-      publishedPosts(parent, args) {
-        return p.posts({ where: { published: true } });
-      },
-      post(parent, { postId }) {
-        return p.post({ id: postId });
-      },
-      postsByUser(parent, { userId }) {
-        return p
-          .user({
-            id: userId
-          })
-          .posts();
+      me: {
+        shield: r.isAuthUser,
+        resolve: async (parent, args, ctx) => {
+          const userId = getUserId(ctx);
+          return p.user({ id: userId });
+        }
       }
     },
     Mutation: {
-      createDraft(parnet, { userId, title }) {
-        return p.createPost({
-          title,
-          author: {
-            connect: { id: userId }
-          }
-        });
+      signup: async (parent, { name, email, password }) => {
+        const hashedPassword = await hashPwd(password);
+        const user = await p.createUser({ name, email, password: hashedPassword });
+        return {
+          token: signToken({ userId: user.id }),
+          user
+        };
       },
-      publish(parent, { postId }) {
-        return p.updatePost({
-          where: { id: postId },
-          data: { published: true }
-        });
-      },
-      createUser(parent, { name }) {
-        return p.createUser({
-          name
-        });
+      login: async (parent, { email, password }) => {
+        const user = await p.user({ email });
+        if (!user) throw new Error(`No user found for email: ${email}`);
+        const passwordValid = await comparePwd(password, user.password);
+        if (!passwordValid) throw new Error("Invalid password");
+
+        return {
+          token: signToken({ userId: user.id }),
+          user
+        };
       }
     },
     User: {
       posts(parent, args) {
-        return p
-          .user({
-            id: parent.id
-          })
-          .posts();
-      }
-    },
-    Post: {
-      author(parent, args) {
-        return p
-          .post({
-            id: parent.id
-          })
-          .author();
+        return p.user({ id: parent.id }).posts();
       }
     }
   }
