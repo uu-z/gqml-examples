@@ -1,4 +1,4 @@
-import { gqml } from "gqml";
+import { gqml, or } from "gqml";
 import { p, r, hashPwd, signToken, getUserId, comparePwd, gql } from "../utils";
 
 gqml.yoga({
@@ -12,6 +12,11 @@ gqml.yoga({
       login(email: String!, password: String!): AuthPayload!
     }
 
+    enum Role {
+      ADMIN
+      USER
+    }
+
     type AuthPayload {
       token: String!
       user: User!
@@ -23,6 +28,7 @@ gqml.yoga({
       updatedAt: DateTime!
       email: String!
       password: String!
+      role: Role!
       name: String
       tweets: [Tweet!]!
     }
@@ -40,7 +46,7 @@ gqml.yoga({
     Mutation: {
       signup: async (parent, { name, email, password }) => {
         const hashedPassword = await hashPwd(password);
-        const user = await p.createUser({ name, email, password: hashedPassword });
+        const user = await p.createUser({ name, email, password: hashedPassword, role: "USER" });
         return {
           token: signToken({ userId: user.id }),
           user

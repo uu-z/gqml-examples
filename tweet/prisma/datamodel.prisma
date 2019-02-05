@@ -1,9 +1,13 @@
+enum Role {
+  ADMIN
+  USER
+}
+
 type Tweet {
   id: ID! @unique
   createdAt: DateTime!
   text: String!
   owner: User!
-  location: Location!
 }
 
 type User {
@@ -12,11 +16,7 @@ type User {
   updatedAt: DateTime!
   email: String! @unique
   password: String!
+  role: Role!
   name: String
   tweets: [Tweet!]!
-}
-
-type Location {
-  latitude: Float!
-  longitude: Float!
 }

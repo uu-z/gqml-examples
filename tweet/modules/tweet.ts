@@ -1,5 +1,5 @@
-import { gqml } from "gqml";
-import { p, getUserId, gql } from "../utils";
+import { gqml, or } from "gqml";
+import { p, getUserId, gql, r } from "../utils";
 
 gqml.yoga({
   typeDefs: gql`
@@ -8,7 +8,8 @@ gqml.yoga({
     }
 
     type Mutation {
-      createTweet(text: String!, location: LocationInput!): Tweet!
+      createTweet(text: String!): Tweet!
+      deleteTweet(id: ID!): Tweet
     }
 
     type Tweet {
@@ -16,17 +17,6 @@ gqml.yoga({
       createdAt: DateTime!
       text: String!
       owner: User!
-      location: Location!
-    }
-
-    input LocationInput {
-      latitude: Float!
-      longitude: Float!
-    }
-
-    type Location {
-      latitude: Float!
-      longitude: Float!
     }
   `,
   resolvers: {
@@ -40,12 +30,18 @@ gqml.yoga({
         const userId = getUserId(ctx);
         return p.createTweet({
           text,
-          location: {
-            create: location
-          },
           owner: { connect: { id: userId } }
         });
+      },
+      deleteTweet: {
+        shield: or(r.isAdmin, r.isTweetOwner),
+        resolve: (parent, { id }) => {
+          return p.deleteTweet({ id });
+        }
       }
+    },
+    Tweet: {
+      // owner: parent => p.tweet({ id: parent.id }).owner()
     }
   }
 });
