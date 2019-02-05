@@ -6,31 +6,13 @@ gqml.yoga({
     type Query {
       me: User!
     }
-
     type Mutation {
       signup(email: String!, name: String, password: String!): AuthPayload!
       login(email: String!, password: String!): AuthPayload!
     }
-
-    enum Role {
-      ADMIN
-      USER
-    }
-
     type AuthPayload {
       token: String!
       user: User!
-    }
-
-    type User {
-      id: ID!
-      createdAt: DateTime!
-      updatedAt: DateTime!
-      email: String!
-      password: String!
-      role: Role!
-      name: String
-      tweets: [Tweet!]!
     }
   `,
   resolvers: {

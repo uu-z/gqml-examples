@@ -5,24 +5,20 @@ gqml.yoga({
   typeDefs: gql`
     type Query {
       tweet(id: ID!): Tweet
+      tweets: [Tweet]!
     }
-
     type Mutation {
       createTweet(text: String!): Tweet!
       deleteTweet(id: ID!): Tweet
-    }
-
-    type Tweet {
-      id: ID!
-      createdAt: DateTime!
-      text: String!
-      owner: User!
     }
   `,
   resolvers: {
     Query: {
       tweet: (parent, { id }) => {
         return p.tweet({ id });
+      },
+      tweets: parent => {
+        return p.tweets();
       }
     },
     Mutation: {
