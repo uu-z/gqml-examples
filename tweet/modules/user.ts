@@ -1,7 +1,32 @@
 import { gqml } from "gqml";
-import { p, r, hashPwd, signToken, getUserId, comparePwd } from "../utils";
+import { p, r, hashPwd, signToken, getUserId, comparePwd, gql } from "../utils";
 
 gqml.yoga({
+  typeDefs: gql`
+    type Query {
+      me: User!
+    }
+
+    type Mutation {
+      signup(email: String!, name: String, password: String!): AuthPayload!
+      login(email: String!, password: String!): AuthPayload!
+    }
+
+    type AuthPayload {
+      token: String!
+      user: User!
+    }
+
+    type User {
+      id: ID!
+      createdAt: DateTime!
+      updatedAt: DateTime!
+      email: String!
+      password: String!
+      name: String
+      tweets: [Tweet!]!
+    }
+  `,
   resolvers: {
     Query: {
       me: {
@@ -32,10 +57,6 @@ gqml.yoga({
         };
       }
     },
-    User: {
-      posts(parent, args) {
-        return p.user({ id: parent.id }).posts();
-      }
-    }
+    User: {}
   }
 });
