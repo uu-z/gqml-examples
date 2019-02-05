@@ -1,4 +1,4 @@
-import { gqml, or } from "gqml";
+import { gqml } from "gqml";
 import { p, r, hashPwd, signToken, getUserId, comparePwd, gql } from "../utils";
 
 gqml.yoga({

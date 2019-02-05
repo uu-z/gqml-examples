@@ -2,16 +2,6 @@ import { gqml, or } from "gqml";
 import { p, getUserId, gql, r } from "../utils";
 
 gqml.yoga({
-  typeDefs: gql`
-    type Query {
-      tweet(id: ID!): Tweet
-      tweets(where: TweetWhereInput, orderBy: TweetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tweet]!
-    }
-    type Mutation {
-      createTweet(text: String!): Tweet!
-      deleteTweet(id: ID!): Tweet
-    }
-  `,
   resolvers: {
     Query: {
       tweet: (parent, { id }) => {
@@ -22,7 +12,7 @@ gqml.yoga({
       }
     },
     Mutation: {
-      createTweet: (parent, { text, location }, ctx) => {
+      createTweet: (parent, { text }, ctx) => {
         const userId = getUserId(ctx);
         return p.createTweet({
           text,
