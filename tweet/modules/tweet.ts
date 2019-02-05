@@ -5,7 +5,7 @@ gqml.yoga({
   typeDefs: gql`
     type Query {
       tweet(id: ID!): Tweet
-      tweets: [Tweet]!
+      tweets(where: TweetWhereInput, orderBy: TweetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Tweet]!
     }
     type Mutation {
       createTweet(text: String!): Tweet!
@@ -17,8 +17,8 @@ gqml.yoga({
       tweet: (parent, { id }) => {
         return p.tweet({ id });
       },
-      tweets: parent => {
-        return p.tweets();
+      tweets: (parent, args) => {
+        return p.tweets(args);
       }
     },
     Mutation: {
