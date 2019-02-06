@@ -18,12 +18,9 @@ gqml.yoga({
   `,
   resolvers: {
     Query: {
-      me: {
-        shield: r.isAuthUser,
-        resolve: async (parent, args, ctx) => {
-          const userId = getUserId(ctx);
-          return p.user({ id: userId });
-        }
+      me: async (parent, args, ctx) => {
+        const userId = getUserId(ctx);
+        return p.user({ id: userId });
       }
     },
     Mutation: {

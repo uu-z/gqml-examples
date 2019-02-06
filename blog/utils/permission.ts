@@ -6,9 +6,9 @@ export const rules = {
     const userId = getUserId(ctx);
     return Boolean(userId);
   }),
-  isPostOwner: rule()(async (parent, { id }, ctx) => {
+  isPostOwner: rule()(async (parent, { where }, ctx) => {
     const userId = getUserId(ctx);
-    const author = await p.post({ id }).author();
+    const author = await p.post(where).author();
     return userId == author.id;
   }),
   isAdmin: rule()(async (parnet, args, ctx) => {

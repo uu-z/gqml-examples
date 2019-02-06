@@ -6,9 +6,9 @@ export const rules = {
     const userId = getUserId(ctx);
     return Boolean(userId);
   }),
-  isTweetOwner: rule()(async (parnet, { id }, ctx) => {
+  isTweetOwner: rule()(async (parnet, { where }, ctx) => {
     const userId = getUserId(ctx);
-    const user = await p.tweet({ id }).owner();
+    const user = await p.tweet(where).owner();
     return userId == user.id;
   }),
   isAdmin: rule()(async (parnet, args, ctx) => {

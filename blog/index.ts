@@ -1,5 +1,6 @@
 import "./modules";
 import { gqml } from "gqml";
+import { getUser, p } from "./utils";
 
 gqml.yoga({
   typeDefs: `${__dirname}/schema.graphql`,
