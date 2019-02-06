@@ -1,7 +1,13 @@
+enum Role {
+  ADMIN
+  USER
+}
+
 type User {
   id: ID! @unique
   email: String! @unique
   name: String
+  role: Role! @default(value: "USER")
   password: String!
   posts: [Post!]!
 }

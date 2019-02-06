@@ -1,7 +1,21 @@
 import { gqml } from "gqml";
-import { p, r, hashPwd, signToken, getUserId, comparePwd } from "../utils";
+import { p, r, hashPwd, signToken, getUserId, comparePwd, gql } from "../utils";
 
 gqml.yoga({
+  typeDefs: gql`
+    type Query {
+      me: User!
+    }
+    type Mutation {
+      signup(email: String!, name: String, password: String!): AuthPayload!
+      login(email: String!, password: String!): AuthPayload!
+    }
+
+    type AuthPayload {
+      token: String
+      user: User!
+    }
+  `,
   resolvers: {
     Query: {
       me: {

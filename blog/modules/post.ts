@@ -1,14 +1,23 @@
 import { gqml } from "gqml";
-import { p, r, getUserId } from "../utils";
+import { p, r, getUserId, gql } from "../utils";
 
 gqml.yoga({
+  typeDefs: gql`
+    type Query {
+      filterPosts(seachString: String): [Post!]!
+    }
+    type Mutation {
+      createDraft(content: String, title: String!): Post!
+      publish(id: ID!): Post
+    }
+  `,
   resolvers: {
     Query: {
-      postFeed() {
-        return p.posts({ where: { published: true } });
+      posts(parent, args) {
+        return p.posts(args);
       },
-      post(parent, { id }) {
-        return p.post({ id });
+      post(parent, { where }) {
+        return p.post(where);
       },
       filterPosts(parent, { searchString }) {
         return p.posts({
@@ -41,8 +50,8 @@ gqml.yoga({
       },
       deletePost: {
         shield: r.isPostOwner,
-        resolve(parent, { id }) {
-          return p.deletePost({ id });
+        resolve(parent, { where }) {
+          return p.deletePost(where);
         }
       }
     },

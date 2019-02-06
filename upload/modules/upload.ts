@@ -1,7 +1,7 @@
 import * as shortid from "shortid";
 import * as mkdirp from "mkdirp";
 import { gqml } from "gqml";
-import { p } from "../utils";
+import { p, gql } from "../utils";
 import fs from "fs";
 
 const uploadDir = "./uploads";
@@ -31,13 +31,21 @@ const processUpload = async upload => {
 };
 
 gqml.yoga({
+  typeDefs: gql`
+    scalar Upload
+
+    type Mutation {
+      singleUpload(file: Upload!): File!
+      multipleUpload(files: [Upload!]!): [File!]!
+    }
+  `,
   resolvers: {
     Query: {
-      file: (parent, { id }) => {
-        return p.file({ id });
+      file: (parent, { where }) => {
+        return p.file(where);
       },
-      files: (parent, {}) => {
-        return p.files();
+      files: (parent, args) => {
+        return p.files(args);
       }
     },
     Mutation: {

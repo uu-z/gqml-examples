@@ -10,5 +10,10 @@ export const rules = {
     const userId = getUserId(ctx);
     const author = await p.post({ id }).author();
     return userId == author.id;
+  }),
+  isAdmin: rule()(async (parnet, args, ctx) => {
+    const userId = getUserId(ctx);
+    const user = await p.user({ id: userId });
+    return user.role == "ADMIN";
   })
 };

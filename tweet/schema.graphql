@@ -3,12 +3,13 @@
 
 directive @private on FIELD_DEFINITION
 
-
 type User {
   id: ID! 
+  createdAt: DateTime!
+  updatedAt: DateTime!
   email: String! 
-  name: String
-  role: Role! 
   password: String @private
-  posts: [Post!]!
+  role: Role!
+  name: String
+  tweets: [Tweet!]!
 }

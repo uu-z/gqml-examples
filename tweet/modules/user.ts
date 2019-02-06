@@ -23,6 +23,9 @@ gqml.yoga({
           const userId = getUserId(ctx);
           return p.user({ id: userId });
         }
+      },
+      users: (parent, args) => {
+        return p.users(args);
       }
     },
     Mutation: {
