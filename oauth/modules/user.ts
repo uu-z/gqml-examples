@@ -10,9 +10,8 @@ gqml.yoga({
       signup(email: String!, name: String, password: String!): AuthPayload!
       login(email: String!, password: String!): AuthPayload!
     }
-
     type AuthPayload {
-      token: String
+      token: String!
       user: User!
     }
   `,
@@ -22,7 +21,7 @@ gqml.yoga({
         const userId = getUserId(ctx);
         return p.user({ id: userId });
       },
-      users: async (parent, args, ctx) => {
+      users: (parent, args) => {
         return p.users(args);
       }
     },
@@ -44,11 +43,6 @@ gqml.yoga({
           token: signToken({ userId: user.id }),
           user
         };
-      }
-    },
-    User: {
-      posts(parent, args) {
-        return p.user({ id: parent.id }).posts();
       }
     }
   }

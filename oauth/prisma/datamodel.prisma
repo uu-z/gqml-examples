@@ -1,0 +1,16 @@
+enum Role {
+  ADMIN
+  USER
+}
+
+type User {
+  id: ID! @unique
+  avatar: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String! @unique
+  githubUserId: String @unique
+  password: String
+  role: Role! @default(value: "USER")
+  name: String
+}
