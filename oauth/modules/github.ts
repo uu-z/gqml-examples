@@ -13,14 +13,13 @@ gqml.yoga({
       authenticate_github: async (parent, { code }) => {
         const githubToken = await getGithubToken(code);
         const githubUser = await getGithubUser(githubToken);
-
         let user = await p.user({ githubUserId: `${githubUser.id}` });
         if (!user) {
           user = await p.createUser({
             githubUserId: `${githubUser.id}`,
             email: githubUser.email,
             name: githubUser.name,
-            avatar: githubUser.avatarUrl
+            avatar: githubUser.avatar_url
           });
         }
         return {
@@ -36,7 +35,7 @@ export interface GithubUser {
   id: string;
   name: string;
   email: string;
-  avatarUrl: string;
+  avatar_url: string;
 }
 
 export async function getGithubToken(code: string): Promise<string> {

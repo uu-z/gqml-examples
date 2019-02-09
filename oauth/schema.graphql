@@ -8,6 +8,7 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String! 
+  avatar: String
   githubUserId: String
   password: String @private
   role: Role!
