@@ -1,16 +1,21 @@
 enum Role {
   ADMIN
   USER
+  NOAUTH
 }
 
 type User {
   id: ID! @unique
+  name: String
   avatar: String
+  role: Role! @default(value: "NOAUTH")
+  password: String
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String! @unique
+  emailConfirmToken: String
+  resetToken: String
+  resetExpires: DateTime
   githubUserId: String @unique
-  password: String
-  role: Role! @default(value: "USER")
-  name: String
+
 }

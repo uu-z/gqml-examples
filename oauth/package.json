@@ -3,12 +3,14 @@
     "start": "nodemon --exec ts-node -- index.ts"
   },
   "dependencies": {
+    "@types/uuid": "^3.4.4",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.3",
     "dotenv": "^6.2.0",
     "gqml": "^0.3.8",
     "jsonwebtoken": "^8.4.0",
-    "prisma-client-lib": "^1.25.7"
+    "prisma-client-lib": "^1.25.7",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",

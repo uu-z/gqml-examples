@@ -1,4 +1,5 @@
 import "./modules";
+import "gqml/plugins/voyager";
 import { gqml } from "gqml";
 
 gqml.yoga({
@@ -11,6 +12,12 @@ gqml.yoga({
           return null;
         });
       }
+    }
+  },
+  voyager: {
+    endpoint: "/voyager",
+    options: {
+      endpointUrl: "/"
     }
   },
   listen: {

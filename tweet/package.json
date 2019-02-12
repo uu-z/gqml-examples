@@ -4,7 +4,7 @@
   },
   "dependencies": {
     "bcrypt": "^3.0.3",
-    "gqml": "^0.3.8",
+    "gqml": "^0.4.4",
     "jsonwebtoken": "^8.4.0",
     "prisma-client-lib": "^1.25.7"
   },
