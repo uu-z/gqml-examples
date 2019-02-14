@@ -1,5 +1,5 @@
 import { gqml, or } from "gqml";
-import { p, getUserId, gql, r } from "../utils";
+import { p, getUserId, r } from "../utils";
 
 gqml.yoga({
   resolvers: {
@@ -25,9 +25,6 @@ gqml.yoga({
           return p.deleteTweet({ id });
         }
       }
-    },
-    Tweet: {
-      // owner: parent => p.tweet({ id: parent.id }).owner()
     }
   }
 });

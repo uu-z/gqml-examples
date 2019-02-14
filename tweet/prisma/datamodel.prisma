@@ -15,7 +15,7 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   email: String! @unique
-  password: String!
+  password: String
   role: Role!
   name: String
   tweets: [Tweet!]!
