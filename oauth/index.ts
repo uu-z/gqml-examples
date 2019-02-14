@@ -13,7 +13,7 @@ gqml
       directiveResolvers: {
         private: (next, src, args, ctx) => {
           return next().then(val => {
-            return null;
+            return "******";
           });
         }
       }
