@@ -1,4 +1,4 @@
-import { hash, compare } from "bcrypt";
+import { hash, compare } from "bcryptjs";
 export { prisma as p } from "./generated/prisma-client";
 export { rules as r } from "./permission";
 export * from "./auth";

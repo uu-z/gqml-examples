@@ -1,18 +1,20 @@
 {
   "scripts": {
-    "start": "nodemon --exec ts-node -- index.ts"
+    "start": "nodemon --exec ts-node -- index.ts",
+    "build": "ncc build index.ts"
   },
   "dependencies": {
     "@types/uuid": "^3.4.4",
     "axios": "^0.18.0",
-    "bcrypt": "^3.0.3",
+    "bcryptjs": "^3.0.3",
     "dotenv": "^6.2.0",
-    "gqml": "^0.3.8",
+    "gqml": "^0.5.0",
     "jsonwebtoken": "^8.4.0",
     "prisma-client-lib": "^1.25.7",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "ncc": "^0.3.6",
     "nodemon": "^1.18.9",
     "ts-node": "^8.0.2",
     "typescript": "^3.3.1"

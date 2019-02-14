@@ -11,6 +11,10 @@ gqml.yoga({
       login(email: String!, password: String!): AuthPayload!
     }
 
+    type User {
+      password: String! @private
+    }
+
     type AuthPayload {
       token: String
       user: User!

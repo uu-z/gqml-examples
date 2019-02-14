@@ -1,14 +1,1 @@
-# import Mutation.* from "utils/generated/prisma.graphql"
-# import Query.* from "utils/generated/prisma.graphql"
-
 directive @private on FIELD_DEFINITION
-
-
-type User {
-  id: ID! 
-  email: String! 
-  name: String
-  role: Role! 
-  password: String @private
-  posts: [Post!]!
-}
