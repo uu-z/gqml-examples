@@ -47,6 +47,16 @@ gqml.yoga({
           user
         };
       }
+    },
+    Subscription: {
+      user: {
+        subscribe: (parent, { where }) => {
+          return p.$subscribe.user(where);
+        },
+        resolve: payload => {
+          return payload;
+        }
+      }
     }
   }
 });

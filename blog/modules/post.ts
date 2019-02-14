@@ -55,6 +55,16 @@ gqml.yoga({
         }
       }
     },
+    Subscription: {
+      post: {
+        subscribe: (parent, { where }) => {
+          return p.$subscribe.post(where);
+        },
+        resolve: payload => {
+          return payload;
+        }
+      }
+    },
     Post: {
       author(parent, args) {
         return p.post({ id: parent.id }).author();

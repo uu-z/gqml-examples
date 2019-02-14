@@ -25,6 +25,16 @@ gqml.yoga({
           return p.deleteTweet({ id });
         }
       }
+    },
+    Subscription: {
+      tweet: {
+        subscribe: (parent, { where }) => {
+          return p.$subscribe.tweet(where);
+        },
+        resolve: (payload, args) => {
+          return payload;
+        }
+      }
     }
   }
 });

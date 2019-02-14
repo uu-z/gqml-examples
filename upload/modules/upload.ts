@@ -51,6 +51,16 @@ gqml.yoga({
     Mutation: {
       singleUpload: (parent, { file }) => processUpload(file),
       multipleUpload: (parent, { files }) => Promise.all(files.map(processUpload))
+    },
+    Subscription: {
+      file: {
+        subscribe: (parent, { where }) => {
+          return p.$subscribe.file(where);
+        },
+        resolve: payload => {
+          return payload;
+        }
+      }
     }
   }
 });

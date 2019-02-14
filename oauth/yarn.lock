@@ -447,7 +447,7 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-bcryptjs@^3.0.3:
+bcryptjs@^2.4.3:
   version "2.4.3"
   resolved "https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.3.tgz#9ab5627b93e60621ff7cdac5da9733027df1d0cb"
 
@@ -1259,9 +1259,9 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-gqml@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.npmjs.org/gqml/-/gqml-0.5.0.tgz#53e1bdd3218bce5ac06b9688d8b75ec1a49b4798"
+gqml@^0.5.5:
+  version "0.5.5"
+  resolved "https://registry.npmjs.org/gqml/-/gqml-0.5.5.tgz#558a42308088068c28d8313d0cce044508efef71"
   dependencies:
     bluebird "^3.5.3"
     graphql-import "^0.7.1"
