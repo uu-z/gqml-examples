@@ -9,5 +9,3 @@ generate:
 hooks:
   post-deploy:
     - prisma generate
-
-endpoint: https://us1.prisma.sh/yuyuko-36f4e1/upload/dev
