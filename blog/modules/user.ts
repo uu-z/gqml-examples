@@ -1,10 +1,10 @@
 import { gqml } from "gqml";
-import { p, r, hashPwd, signToken, getUserId, comparePwd, gql } from "../utils";
+import { p, hashPwd, signToken, getTokenData, comparePwd, gql } from "../utils";
 
 gqml.yoga({
   typeDefs: gql`
     type Query {
-      me: User!
+      me: User! @isAuthUser
     }
     type Mutation {
       signup(email: String!, name: String, password: String!): AuthPayload!
@@ -12,7 +12,7 @@ gqml.yoga({
     }
 
     type User {
-      password: String! @private
+      password: String @private
     }
 
     type AuthPayload {
@@ -23,7 +23,7 @@ gqml.yoga({
   resolvers: {
     Query: {
       me: async (parent, args, ctx) => {
-        const userId = getUserId(ctx);
+        const { userId } = getTokenData(ctx);
         return p.user({ id: userId });
       },
       users: async (parent, args, ctx) => {
@@ -35,7 +35,7 @@ gqml.yoga({
         const hashedPassword = await hashPwd(password);
         const user = await p.createUser({ name, email, password: hashedPassword });
         return {
-          token: signToken({ userId: user.id }),
+          token: signToken(user),
           user
         };
       },
@@ -45,7 +45,7 @@ gqml.yoga({
         const passwordValid = await comparePwd(password, user.password);
         if (!passwordValid) throw new Error("Invalid password");
         return {
-          token: signToken({ userId: user.id }),
+          token: signToken(user),
           user
         };
       }

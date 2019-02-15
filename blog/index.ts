@@ -1,5 +1,7 @@
+require("dotenv").config();
 import "./modules";
 import { gqml } from "gqml";
+import { directiveResolvers } from "./utils";
 
 gqml
   .yoga({
@@ -9,13 +11,7 @@ gqml
     typeDefs: __dirname + "/schema.graphql",
     options: {
       context: ctx => ctx,
-      directiveResolvers: {
-        private: (next, src, args, ctx) => {
-          return next().then(val => {
-            return "******";
-          });
-        }
-      }
+      directiveResolvers
     },
     listen: {
       port: 3000

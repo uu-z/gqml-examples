@@ -1,2 +1,0 @@
-import "./tweet";
-import "./user";

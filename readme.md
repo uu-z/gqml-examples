@@ -2,7 +2,7 @@
 
 ```bash
 $ git clone https://github.com/uu-z/gqml-examples
-$ cd tweet
+$ cd blog
 ```
 
 ## instation

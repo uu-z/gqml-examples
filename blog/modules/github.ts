@@ -23,7 +23,7 @@ gqml.yoga({
           });
         }
         return {
-          token: signToken({ userId: user.id }),
+          token: signToken(user),
           user
         };
       }

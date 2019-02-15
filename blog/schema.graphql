@@ -1,1 +1,5 @@
 directive @private on FIELD_DEFINITION
+directive @isAuthUser on QUERY | FIELD_DEFINITION | MUTATION
+directive @hasRole(roles: [String]) on QUERY | FIELD_DEFINITION | MUTATION
+directive @isOwner(type: String) on QUERY | FIELD_DEFINITION |MUTATION
+directive @isOwnerOrHasRole(type: String, roles: [String]) on QUERY | FIELD_DEFINITION |MUTATION

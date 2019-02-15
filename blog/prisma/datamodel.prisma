@@ -1,14 +1,19 @@
 enum Role {
   ADMIN
   USER
+  UNAUTH
 }
 
 type User {
   id: ID! @unique
-  email: String! @unique
   name: String
-  role: Role! @default(value: "USER")
-  password: String!
+  avatar: String
+  role: Role! @default(value: "UNAUTH")
+  password: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String! @unique
+  githubUserId: String @unique
   posts: [Post!]!
 }
 

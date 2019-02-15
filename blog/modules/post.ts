@@ -1,14 +1,16 @@
 import { gqml } from "gqml";
-import { p, r, getUserId, gql } from "../utils";
+import { p, getTokenData, gql } from "../utils";
 
 gqml.yoga({
   typeDefs: gql`
     type Query {
       filterPosts(seachString: String): [Post!]!
+      drafts(orderBy: PostOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Post]! @isAuthUser
     }
     type Mutation {
-      createDraft(content: String, title: String!): Post!
-      publish(id: ID!): Post
+      createDraft(content: String, title: String!): Post! @isAuthUser
+      publish(id: ID!): Post @isOwner(type: "post")
+      deletePost(where: PostWhereUniqueInput): Post @isOwnerOrHasRole(type: "post", roles: ["ADMIN"])
     }
   `,
   resolvers: {
@@ -19,6 +21,10 @@ gqml.yoga({
       post(parent, { where }) {
         return p.post(where);
       },
+      drafts(parent, args, ctx) {
+        const { userId } = getTokenData(ctx);
+        return p.posts({ where: { author: { id: userId }, published: false }, ...args });
+      },
       filterPosts(parent, { searchString }) {
         return p.posts({
           where: {
@@ -28,31 +34,22 @@ gqml.yoga({
       }
     },
     Mutation: {
-      createDraft: {
-        shield: r.isAuthUser,
-        resolve: async (parnet, { content, title }, ctx) => {
-          const userId = getUserId(ctx);
-          return p.createPost({
-            title,
-            content,
-            author: { connect: { id: userId } }
-          });
-        }
+      createDraft: async (parnet, { content, title }, ctx) => {
+        const { userId } = getTokenData(ctx);
+        return p.createPost({
+          title,
+          content,
+          author: { connect: { id: userId } }
+        });
       },
-      publish: {
-        shield: r.isPostOwner,
-        resolve(parent, { id }) {
-          return p.updatePost({
-            where: { id },
-            data: { published: true }
-          });
-        }
+      publish: (parent, { id }) => {
+        return p.updatePost({
+          where: { id },
+          data: { published: true }
+        });
       },
-      deletePost: {
-        shield: r.isPostOwner,
-        resolve(parent, { where }) {
-          return p.deletePost(where);
-        }
+      deletePost: (parent, { where }) => {
+        return p.deletePost(where);
       }
     },
     Subscription: {
