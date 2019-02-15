@@ -3,6 +3,8 @@ import "./modules";
 import { gqml } from "gqml";
 import { directiveResolvers } from "./utils";
 
+const { PORT = 3000 } = process.env;
+
 gqml
   .yoga({
     typeDefs: __dirname + "/utils/generated/prisma.graphql"
@@ -14,6 +16,6 @@ gqml
       directiveResolvers
     },
     listen: {
-      port: 3000
+      port: PORT
     }
   });
