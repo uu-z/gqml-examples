@@ -38,6 +38,6 @@ $ now
 ## up
 
 ```bash
-$ npm install up -g
+$ curl -sf https://up.apex.sh/install | sh
 $ up
 ```
