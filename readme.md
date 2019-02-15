@@ -24,7 +24,7 @@ $ yarn start
 
 ```bash
 $ yarn build
-$ docker build . -t foo
+$ docker build ./dist -t foo
 $ docker run -d -p 3000:3000 foo
 ```
 
